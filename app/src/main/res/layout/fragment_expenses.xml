@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="4dp">
+
+        <!-- Toast / watchdog banner -->
+        <LinearLayout
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/bannerText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingVertical="10dp"
+                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/bannerClose"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:contentDescription="Dismiss"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="X"
+                android:textAppearance="@style/TextAppearance.PetOS.Label" />
+        </LinearLayout>
+
+        <!-- Daily Vault -->
+        <LinearLayout
+            style="@style/Widget.PetOS.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_tile_pink"
+                android:contentDescription="Piggy bank"
+                android:padding="8dp"
+                android:src="@drawable/ic_nav_budgets"
+                app:tint="@color/primary_dark" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DAILY SPENDING"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/textToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TODAY: --"
+                    android:textAppearance="@style/TextAppearance.PetOS.Title" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textXp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chip_yellow"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="XP --"
+                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <!-- New Expense -->
+        <LinearLayout
+            style="@style/Widget.PetOS.Window"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_titlebar_yellow"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="New Expense"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/btnToggleForm"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_chip_light"
+                    android:clickable="true"
+                    android:contentDescription="Show or hide the form"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="_"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/formBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TYPE"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp">
+
+                            <Spinner
+                                android:id="@+id/spinnerCategory"
+                                style="@style/Widget.PetOS.Spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="end"
+                                android:gravity="center"
+                                android:paddingHorizontal="10dp"
+                                android:text="▼"
+                                android:textColor="@color/primary_dark"
+                                android:textSize="10sp" />
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AMOUNT ($)"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                        <EditText
+                            android:id="@+id/inputAmount"
+                            style="@style/Widget.PetOS.EditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:autofillHints="none"
+                            android:hint="0.00"
+                            android:inputType="numberDecimal"
+                            android:maxLength="12" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ITEM"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                        <EditText
+                            android:id="@+id/inputItem"
+                            style="@style/Widget.PetOS.EditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:autofillHints="none"
+                            android:hint="e.g. chips"
+                            android:inputType="textCapSentences"
+                            android:maxLength="255" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DATE"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                        <TextView
+                            android:id="@+id/textDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/bg_input"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:minHeight="48dp"
+                            android:paddingHorizontal="12dp"
+                            android:textAppearance="@style/TextAppearance.PetOS.Body"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRecord"
+                    style="@style/Widget.PetOS.Button.Plum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:minHeight="52dp"
+                    android:text="RECORD EXPENSE" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- EXPENSE_LOG.DAT -->
+        <LinearLayout
+            style="@style/Widget.PetOS.Window"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_titlebar_pink"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="10dp">
+
+                <TextView
+                    android:id="@+id/textLogTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Expenses (0)"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textSync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="● SYNCING"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/columnHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/surface_variant"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="6dp">
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:text="DATE"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:text="CAT"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ITEM"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="152dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="COST / ACT"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listExpenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Empty state -->
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:contentDescription="Empty floppy disk"
+                    android:src="@drawable/ic_floppy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="NO EXPENSES YET"
+                    android:textAppearance="@style/TextAppearance.PetOS.Title"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:text="No expenses yet. Fill in the form and tap RECORD EXPENSE to feed your pet some coins."
+                    android:textAppearance="@style/TextAppearance.PetOS.Body" />
+            </LinearLayout>
+
+            <!-- Error state -->
+            <LinearLayout
+                android:id="@+id/errorState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textColor="@color/red" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRetry"
+                    style="@style/Widget.PetOS.Button.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="RETRY" />
+            </LinearLayout>
+
+            <!-- Footer: filter + paging -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/surface_variant"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SHOW:"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="10sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerFilter"
+                    style="@style/Widget.PetOS.Spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:minHeight="40dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnPrev"
+                    style="@style/Widget.PetOS.Button.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:minHeight="40dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="16dp"
+                    android:text="&lt;" />
+
+                <TextView
+                    android:id="@+id/textPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="1/1"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnNext"
+                    style="@style/Widget.PetOS.Button.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="16dp"
+                    android:text="&gt;" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Budget Pet Companion -->
+        <LinearLayout
+            style="@style/Widget.PetOS.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/bg_chip_yellow"
+                android:contentDescription="Pet"
+                android:padding="12dp"
+                android:src="@drawable/ic_paw" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="BUDGET PET COMPANION"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/textPetLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LVL --"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textColor="@color/green_dark"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textPetMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body" />
+
+                <ProgressBar
+                    android:id="@+id/progressPet"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="8dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_progress" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

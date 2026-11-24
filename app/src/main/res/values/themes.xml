@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.PocketPet" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Material 3 color roles -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/primary_dark</item>
+        <item name="colorSecondary">@color/green</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/green_container</item>
+        <item name="colorOnSecondaryContainer">@color/green_dark</item>
+        <item name="colorTertiary">@color/amber_dark</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/amber_container</item>
+        <item name="colorOnTertiaryContainer">@color/amber_dark</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/text_body</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOutline">@color/outline</item>
+        <item name="colorError">@color/red</item>
+        <item name="colorErrorContainer">@color/red_container</item>
+
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Shared text appearances, system sans-serif -->
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.PetOS.Body</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.PetOS.Body</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.PetOS.Body</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.PetOS.Label</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.PetOS.Label</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.PetOS.Label</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.PetOS.Title</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.PetOS.Title</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.PetOS.Title</item>
+    </style>
+</resources>

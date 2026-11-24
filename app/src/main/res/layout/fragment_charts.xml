@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="4dp">
+
+        <!-- Spending Chart -->
+        <LinearLayout
+            style="@style/Widget.PetOS.Window"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_titlebar_pink"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Spending Chart"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/bg_chip_light"
+                    android:gravity="center"
+                    android:text="_"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                <TextView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_chip_red"
+                    android:gravity="center"
+                    android:text="X"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textLoading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="32dp"
+                android:text="LOADING CHART..."
+                android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+            <LinearLayout
+                android:id="@+id/errorState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textColor="@color/red" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRetry"
+                    style="@style/Widget.PetOS.Button.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="RETRY" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:visibility="gone">
+
+                <!-- month navigator + total -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnPrev"
+                        style="@style/Widget.PetOS.Button.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="16dp"
+                        android:text="&lt;" />
+
+                    <TextView
+                        android:id="@+id/textMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnNext"
+                        style="@style/Widget.PetOS.Button.Light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="16dp"
+                        android:text="&gt;" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_chip_teal"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- the donut -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_input"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="● This month"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label"
+                            android:textColor="@color/green_dark"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_chip_yellow"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp"
+                            android:text="Category view"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label"
+                            android:textSize="9sp" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp">
+
+                        <com.expensetracker.app.ui.charts.DonutChartView
+                            android:id="@+id/donut"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/centerIcon"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:contentDescription="Selected category icon" />
+
+                            <TextView
+                                android:id="@+id/centerName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:maxWidth="110dp"
+                                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/centerAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxWidth="110dp"
+                                android:maxLines="1"
+                                android:textAppearance="@style/TextAppearance.PetOS.Title"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="▲ TAP ANY SECTOR OR ITEM BELOW ▲"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+                <!-- category summary -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="CATEGORY SUMMARY"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textBuckets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.PetOS.Body"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+
+                <!-- EXPENSES: <category> -->
+                <LinearLayout
+                    android:id="@+id/expensesCard"
+                    style="@style/Widget.PetOS.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textExpensesTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/textRecent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_chip_light"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="2dp"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/recentList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        android:id="@+id/textNoRecent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingVertical="12dp"
+                        android:text="No expenses in this category this month."
+                        android:textAppearance="@style/TextAppearance.PetOS.Body"
+                        android:visibility="gone" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnAddItem"
+                        style="@style/Widget.PetOS.Button.Plum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="+ ADD ITEM TO THIS CATEGORY" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="4dp">
+
+        <!-- Your Profile -->
+        <LinearLayout
+            style="@style/Widget.PetOS.Window"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_titlebar_mauve"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your Profile"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_chip_light"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:text="v2.01"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- trainer card -->
+                <LinearLayout
+                    style="@style/Widget.PetOS.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textAvatar"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:background="@drawable/bg_tile_pink"
+                            android:gravity="center"
+                            android:text="?"
+                            android:textAppearance="@style/TextAppearance.PetOS.Title"
+                            android:textSize="32sp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textAppearance="@style/TextAppearance.PetOS.Title"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/chipLevel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:background="@drawable/bg_chip_plum"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:text="LVL --"
+                                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/textStreak"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                                android:textColor="@color/green_dark"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="XP PROGRESS"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/textXp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.PetOS.Label"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressXp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="4dp"
+                        android:max="100"
+                        android:progressDrawable="@drawable/bg_progress" />
+
+                    <TextView
+                        android:id="@+id/textTotalXp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.PetOS.Body"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Buddy Bot -->
+                <LinearLayout
+                    style="@style/Widget.PetOS.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_chip_yellow"
+                            android:contentDescription="Buddy Bot"
+                            android:padding="12dp"
+                            android:src="@drawable/ic_paw" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Buddy Bot"
+                                android:textAppearance="@style/TextAppearance.PetOS.Title"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/textMood"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="MOOD: --"
+                                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                                android:textSize="10sp" />
+
+                            <ProgressBar
+                                android:id="@+id/progressMood"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="4dp"
+                                android:max="100"
+                                android:progressDrawable="@drawable/bg_progress" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textPetMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAppearance="@style/TextAppearance.PetOS.Body"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- account -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="ACCOUNT CREDENTIALS"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="USERNAME"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                    <TextView
+                        android:id="@+id/btnEditName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_chip_yellow"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="EDIT"
+                        android:textAppearance="@style/TextAppearance.PetOS.Label"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/fieldName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="12dp"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="EMAIL"
+                    android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+                <TextView
+                    android:id="@+id/fieldEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/bg_input"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="12dp"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogout"
+                    style="@style/Widget.PetOS.Button.Plum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:minHeight="52dp"
+                    android:text="LOG OUT" />
+
+                <TextView
+                    android:id="@+id/textFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.PetOS.Body"
+                    android:textSize="9sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        style="@style/Widget.PetOS.Window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_titlebar_teal"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit Category"
+                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/chipLocked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chip_yellow"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:text="LOCKED_TAG"
+                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                android:textSize="9sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CATEGORY TITLE"
+                android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+            <EditText
+                android:id="@+id/inputName"
+                style="@style/Widget.PetOS.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:autofillHints="none"
+                android:inputType="textCapWords"
+                android:maxLength="50" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="TAG PALETTE COLOR"
+                android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+            <LinearLayout
+                android:id="@+id/palette"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="MONTHLY LIMIT CAP ($)"
+                android:textAppearance="@style/TextAppearance.PetOS.Label" />
+
+            <EditText
+                android:id="@+id/inputLimit"
+                style="@style/Widget.PetOS.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:autofillHints="none"
+                android:hint="leave blank to keep as is"
+                android:inputType="numberDecimal"
+                android:maxLength="12" />
+
+            <TextView
+                android:id="@+id/textError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textAppearance="@style/TextAppearance.PetOS.Label"
+                android:textColor="@color/red"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSaveCategory"
+                    style="@style/Widget.PetOS.Button.Yellow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="SAVE" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnDiscard"
+                    style="@style/Widget.PetOS.Button.Light"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="DISCARD" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
