@@ -1,0 +1,482 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{mathptmx}
+\usepackage[scaled=.92]{helvet}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype,setspace,graphicx,xcolor,booktabs,array,tabularx,longtable,enumitem,float,caption,subcaption,titlesec,tocloft,fancyhdr,listings,tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+\usepackage[hidelinks]{hyperref}
+
+\DeclareUnicodeCharacter{20B9}{Rs.}
+
+\onehalfspacing
+\emergencystretch=4em
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{itemsep=2pt,topsep=4pt}
+
+\titleformat{\chapter}[hang]{\bfseries\huge}{Chapter \thechapter:}{.5em}{}
+\titlespacing*{\chapter}{0pt}{-10pt}{22pt}
+\titleformat{\section}{\bfseries\Large}{\thesection}{.7em}{}
+\titleformat{\subsection}{\bfseries\large}{\thesubsection}{.7em}{}
+
+\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\cftchappresnum}{Chapter }
+\renewcommand{\cftchapaftersnum}{:}
+\setlength{\cftchapnumwidth}{6.2em}
+\setlength{\cftsecindent}{6.2em}
+\setlength{\cftsecnumwidth}{2.6em}
+\setcounter{tocdepth}{2}
+
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{Expense Tracker}\fancyhead[R]{UCS553 Mini Project Report}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+\captionsetup{font=small,labelfont=bf}
+
+\lstdefinestyle{javastyle}{language=Java,basicstyle=\ttfamily\footnotesize,keywordstyle=\color{blue!60!black}\bfseries,commentstyle=\color{green!40!black}\itshape,stringstyle=\color{red!50!black},numbers=left,numberstyle=\tiny\color{gray},numbersep=6pt,frame=single,breaklines=true,showstringspaces=false,tabsize=4,aboveskip=8pt,belowskip=8pt}
+\lstdefinestyle{plainstyle}{basicstyle=\ttfamily\footnotesize,frame=single,breaklines=true,showstringspaces=false,aboveskip=8pt,belowskip=8pt}
+\lstset{style=javastyle,floatplacement=htbp}
+
+\newcommand{\shot}[1]{\IfFileExists{images/screens/#1}{\includegraphics[width=\linewidth]{images/screens/#1}}{\fbox{\parbox[c][2cm][c]{.9\linewidth}{\centering\small Screenshot not provided}}}}
+\newcommand{\wideshot}[1]{\IfFileExists{images/screens/#1}{\includegraphics[width=.95\linewidth]{images/screens/#1}}{\fbox{\parbox[c][1.5cm][c]{.9\linewidth}{\centering\small Screenshot not provided}}}}
+
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\draw[line width=.8pt] ([shift={(1cm,1cm)}]current page.south west) rectangle ([shift={(-1cm,-1cm)}]current page.north east);
+\end{tikzpicture}
+\centering\singlespacing\setlength{\parskip}{3pt}
+\vspace*{.7cm}
+{\Large\bfseries UCS553: Enterprise Web Application\par}
+{\Large\bfseries Mini Project Report\par}
+\vspace{.7cm}
+{\LARGE\bfseries Expense Tracker\par}
+{\large A Personal Finance Management System with an Android Client\\and a Java REST Backend\par}
+\vspace{.7cm}
+{\large Under the Guidance of\par}
+\vspace{.3cm}
+{\large\bfseries Dr. Shaheen Usmani\par}
+{\large Assistant Professor\par}
+{\large Thapar Institute of Engineering Technology\par}
+\vspace{.6cm}
+\IfFileExists{logo.png}{\includegraphics[width=3.2cm]{logo.png}}{\fbox{\parbox[c][2.5cm][c]{3.2cm}{\centering Institute\\Logo}}}
+\vspace{.7cm}
+\vspace{.7cm}
+\begin{center}
+\textbf{Submitted By:}\\[0.2cm]
+\begin{tabular}{ll}
+1024160102 & Mahi Singh \\
+1024160109 & Vrishank Nehru \\
+1024160111 & Vemula Manvi Smaran
+\end{tabular}
+\end{center}
+\vspace{.4cm}
+\vspace{.4cm}
+{\large\bfseries Computer Science Engineering Department\par}
+{\large\bfseries Thapar Institute of Engineering Technology, Patiala\par}
+\vspace{.4cm}
+{\small In Partial Fulfilment of the Requirements for the Degree of\\Bachelor of Engineering in Computer Engineering\par}
+\vspace{.3cm}
+{\small at\par}
+{\small Thapar Institute of Engineering Technology, Patiala\par}
+\vspace{.5cm}
+{\bfseries November 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}\setcounter{page}{1}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+Keeping track of everyday spending is a habit many people struggle to sustain. Manual notes are forgotten, spreadsheets are tedious, and many existing applications either overwhelm users with features or report overspending only after the damage is done. This project presents \textbf{Expense Tracker}, a personal finance application built entirely in Java. It consists of an Android client, a REST API server written with the JDK's built-in HTTP server, and a PostgreSQL database accessed through JDBC.
+
+The application is built around three distinguishing features. First, \emph{real-time budget threshold alerts} warn the user when a newly logged expense pushes a category close to or beyond its monthly limit. Second, \emph{interactive categorical spending charts} present monthly expenses through an explorable donut chart. Third, \emph{recurring subscription tracking} records subscriptions and automatically converts due payments into expenses through a scheduled background job. A lightweight virtual-pet progression system encourages consistent tracking.
+
+User accounts are protected with PBKDF2 password hashing and JWT-based authentication, ensuring that each user sees only their own data. The backend is packaged with Docker and deployed on Render, with the database hosted on Neon. Development began with a JavaFX desktop prototype and later moved to a mobile-first Android interface based on a Figma design system. This report documents the design, implementation and results of the project.
+
+\medskip
+\textbf{Keywords:} Java, Android, JDBC, PostgreSQL, REST API, JWT, Expense Tracking, Budgeting.
+\clearpage
+
+\tableofcontents\clearpage
+\pagenumbering{arabic}\setcounter{page}{1}
+\chapter{Introduction}
+\section{Introduction to the Project}
+Personal finance management begins with one simple question: \emph{where did my money go?} Answering it requires recording expenses, grouping them into meaningful categories and comparing totals against planned spending. Manual tracking is error-prone, and users often abandon it after a short time.
+
+\textbf{Expense Tracker} makes this habit lightweight. Users register, log expenses, set monthly budgets and register recurring subscriptions. The application warns about budget thresholds, visualises spending by category and posts subscription payments automatically.
+
+The project follows a client--server architecture:
+\begin{itemize}
+\item \textbf{Android client}: Java, XML layouts, ViewBinding, Navigation component and Retrofit/OkHttp.
+\item \textbf{REST API server}: Java 25 and the JDK's built-in \texttt{HttpServer}, Jackson for JSON and JWT authentication.
+\item \textbf{Database}: PostgreSQL accessed through JDBC and HikariCP, hosted on Neon; the server is containerised with Docker and deployed on Render.
+\end{itemize}
+Its main features are real-time budget alerts, interactive category-wise charts and automated recurring subscriptions. A virtual pet, Buddy Bot, gains experience, levels, streak and mood based on the user's activity.
+
+Development was incremental. The backend, database schema, models, DAOs and services were implemented and tested first. A JavaFX desktop interface validated the business rules. The project was then redesigned in Figma using the Pocket Pet OS design system and rebuilt as an Android application. The backend and Android client are maintained in separate GitHub repositories.
+
+\newpage
+\section{Problem Statement}
+Existing expense trackers commonly have three limitations:
+\begin{itemize}
+\item \textbf{Reactive rather than proactive:} overspending is often noticed only when a monthly summary is reviewed.
+\item \textbf{Difficult-to-read data:} transaction lists do not quickly reveal which categories dominate spending.
+\item \textbf{Forgotten recurring payments:} subscriptions can silently increase monthly expenditure.
+\end{itemize}
+The project addresses these issues by building a secure multi-user Java application that alerts users while spending, visualises category totals and processes recurring payments automatically through a simple mobile interface.
+
+\section{Objectives of the Project}
+\begin{enumerate}
+\item Design a relational schema for users, categories, expenses, budgets and subscriptions, accessed through JDBC.
+\item Implement a layered backend using model, DAO, service and API layers.
+\item Provide budget checking that returns \texttt{WARNING} or \texttt{EXCEEDED} when an expense is added or edited.
+\item Provide aggregated category-wise spending data for charts.
+\item Automate recurring subscriptions through a scheduled background job.
+\item Secure accounts using PBKDF2 password hashing and JWT authentication.
+\item Build a consistent Android client and deploy the backend and database to cloud platforms.
+\end{enumerate}
+
+\section{Scope of the Project}
+\textbf{In scope}
+\begin{itemize}
+\item Registration, login and profile management for multiple users.
+\item CRUD operations for expenses, category assignment and paginated/filterable logs.
+\item User-specific categories with name, colour and icon; four default categories: Food, Transport, Entertainment and Bills.
+\item Monthly category budgets, alert thresholds and progress indicators.
+\item Monthly category-wise charts with month navigation.
+\item Subscription management and automatic processing of due payments.
+\item Pet progression through XP, levels, streak and mood.
+\item Android client connected to a cloud REST API and PostgreSQL database.
+\end{itemize}
+\textbf{Out of scope}
+\begin{itemize}
+\item Bank, UPI or SMS transaction integration.
+\item iOS and web clients; Android is the target client.
+\item Multi-currency conversion; amounts are displayed in dollars.
+\item Offline operation; network access is required for the hosted backend.
+\end{itemize}
+
+\chapter{System Design}
+\section{System Architecture}
+The system uses a three-tier architecture. The Android presentation layer sends HTTPS requests to the Java REST API. The API authenticates requests, invokes service-layer business logic and uses DAO classes to access PostgreSQL through JDBC. Subscription processing runs independently as a scheduled backend task.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[node distance=1.5cm, every node/.style={draw,rounded corners,align=center,minimum width=3.5cm,minimum height=1cm}]
+\node (client) {Android Client\\Java / XML};
+\node (api) [below=of client] {Java REST API\\HttpServer / Services};
+\node (dao) [below=of api] {DAO Layer\\JDBC / HikariCP};
+\node (db) [below=of dao] {PostgreSQL\\Neon};
+\draw[-{Stealth},thick] (client)--node[right,draw=none]{HTTPS / JSON}(api);
+\draw[-{Stealth},thick] (api)--(dao);
+\draw[-{Stealth},thick] (dao)--(db);
+\end{tikzpicture}
+\caption{High-level system architecture}\label{fig:architecture}
+\end{figure}
+
+\section{Use Case Diagram}
+The principal actor is the registered user. The user can manage their account, expenses, categories, budgets and subscriptions, view charts and profile progress. The system also processes subscriptions automatically in the background.
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[node distance=1.0cm]
+\node[draw,ellipse] (actor) {User};
+\node[draw,rounded corners,right=2.5cm of actor] (auth) {Register / Login};
+\node[draw,rounded corners,below=of auth] (expense) {Manage Expenses};
+\node[draw,rounded corners,below=of expense] (budget) {Manage Budgets};
+\node[draw,rounded corners,below=of budget] (chart) {View Spending Charts};
+\node[draw,rounded corners,below=of chart] (subs) {Manage Subscriptions};
+\node[draw,rounded corners,below=of subs] (profile) {View Profile / Pet};
+\draw[-{Stealth}] (actor)--(auth);
+\draw[-{Stealth}] (actor)--(expense);
+\draw[-{Stealth}] (actor)--(budget);
+\draw[-{Stealth}] (actor)--(chart);
+\draw[-{Stealth}] (actor)--(subs);
+\draw[-{Stealth}] (actor)--(profile);
+\end{tikzpicture}
+\caption{Major user use cases}\label{fig:usecase}
+\end{figure}
+
+\section{Class Design}
+The backend is organised around immutable model records, data-access objects and service classes. Expense, Category, Budget, Subscription and User represent domain data. DAOs perform SQL operations; services validate input and implement business rules. The API router connects HTTP endpoints to services. Android uses request/response models, a Retrofit service interface and screen-specific fragments/adapters.
+
+\section{Activity Diagram: Adding an Expense}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[node distance=0.75cm]
+\node[draw,rounded corners] (start) {Start};
+\node[draw,rounded corners,below=of start] (input) {Enter expense details};
+\node[draw,diamond,aspect=2,below=of input] (valid) {Input valid?};
+\node[draw,rounded corners,below left=1cm and .8cm of valid] (error) {Show validation error};
+\node[draw,rounded corners,below right=1cm and .8cm of valid] (save) {Save expense};
+\node[draw,rounded corners,below=1cm of save] (check) {Check category budget};
+\node[draw,rounded corners,below=of check] (result) {Return expense and alert};
+\draw[-{Stealth}] (start)--(input);\draw[-{Stealth}] (input)--(valid);
+\draw[-{Stealth}] (valid)--node[left]{No}(error);
+\draw[-{Stealth}] (valid)--node[right]{Yes}(save);
+\draw[-{Stealth}] (save)--(check);\draw[-{Stealth}] (check)--(result);
+\end{tikzpicture}
+\caption{Expense entry workflow}\label{fig:activity}
+\end{figure}
+
+\section{Database Design / ER Description}
+The relational database contains users, categories, expenses, budgets and subscriptions. Each user owns their records. Expenses reference categories where applicable; a category may be absent after deletion, in which case the expense is displayed as Uncategorized. Budgets are associated with a user and category. Subscriptions store their amount, frequency and next due date. Foreign-key relationships and indexes support integrity and efficient retrieval.
+
+\chapter{Implementation}
+\section{Technologies and Tools Used}
+\begin{table}[H]\centering\caption{Technologies and tools}\label{tab:tech}\small
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}lX@{}}\toprule Area & Technology\\\midrule
+Backend & Java 25, Apache Maven\\
+REST server & JDK \texttt{HttpServer}, virtual-thread executor\\
+JSON & Jackson databind and Java Time module\\
+Security & PBKDF2 password hashing, HS256 JWT\\
+Database & PostgreSQL hosted on Neon\\
+Database access & JDBC, PostgreSQL driver 42.7.4, HikariCP 6.2.1\\
+Deployment & Docker multi-stage image, Render\\
+Android & Java, XML, ViewBinding, Navigation and Material components\\
+Networking & Retrofit 2.11, Gson converter, OkHttp 4.12\\
+Prototype & JavaFX 25\\
+Design & Figma, Pocket Pet OS design system\\
+Tools & VS Code, Android Studio, Git and GitHub\\\bottomrule
+\end{tabularx}\end{table}
+
+\newpage
+\section{Project Structure / Package Structure}
+The backend is a Maven project with base package \texttt{com.expensetracker}. Its layered structure is shown below.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[style=plainstyle,caption={Backend project structure},aboveskip=6pt,belowskip=6pt]
+expense-tracker/
+|-- pom.xml
+|-- Dockerfile
+|-- sql/
+|   |-- schema.sql
+|   |-- seed.sql
+|   `-- migration_01_mobile.sql
+`-- src/main/java/com/expensetracker/
+    |-- App.java
+    |-- api/       Router, ApiRoutes, Ctx, Dtos, Json, ApiException
+    |-- config/    AppConfig, DatabaseConfig
+    |-- model/     Expense, Category, Budget, Subscription, User, ...
+    |-- dao/       UserDao, CategoryDao, ExpenseDao, BudgetDao, ...
+    |-- service/   AuthService, ExpenseService, BudgetService, ...
+    `-- util/      JwtUtil, PasswordHasher
+\end{lstlisting}
+\end{minipage}
+
+The Android application follows the standard Gradle structure under \texttt{com.expensetracker.app}, with data, model and UI packages. UI modules include Expenses, Charts, Budgets, Subs, Categories and Profile. A single \texttt{MainActivity} hosts the navigation component and bottom navigation.
+
+\section{Description of Classes and Interfaces}
+\begin{table}[H]\centering\caption{Main backend classes and responsibilities}\small
+\begin{tabularx}{\linewidth}{@{}>{\ttfamily\raggedright\arraybackslash}p{.28\linewidth}X@{}}\toprule Class & Responsibility\\\midrule
+Expense, Category, Budget, Subscription, User & Immutable records representing database entities.\\
+ExpenseDao & Expense CRUD, pagination, category totals and breakdown queries.\\
+CategoryDao & Category CRUD, counts and bulk deletion rules.\\
+BudgetDao, SubscriptionDao, UserDao & Persistence for budgets, subscriptions and users.\\
+ExpenseService & Expense validation, budget alerts and monthly chart summary.\\
+BudgetService & Budget persistence and monthly status calculation.\\
+CategoryService & Category validation and duplicate-name handling.\\
+SubscriptionService & Subscription overview and due-payment processing.\\
+SubscriptionScheduler & Runs subscription processing at startup and hourly.\\
+PetService & Calculates XP, level, streak, hunger and mood.\\
+AuthService & Registration, login, profile update and default categories.\\
+PasswordHasher, JwtUtil & Password hashing/verification and token handling.\\
+Router, ApiRoutes & Route dispatch, authentication and HTTP error mapping.\\
+DatabaseConfig & Environment-based configuration and pooled connections.\\\bottomrule
+\end{tabularx}\end{table}
+
+Object-oriented programming is applied through interfaces, inheritance, records, enums and encapsulation. \texttt{Router} implements \texttt{HttpHandler}; \texttt{ApiCallback<T>} is an abstract Retrofit callback; \texttt{ApiException} extends \texttt{RuntimeException}; custom chart views extend Android \texttt{View}. DAOs encapsulate SQL and services encapsulate business rules.
+
+\section{Implementation of Major Modules}
+\subsection{Authentication}
+Passwords are stored as PBKDF2 hashes with random salts. Login verifies the password using constant-time comparison. A successful login produces a JWT whose subject is the user ID. Android stores the token through \texttt{SessionManager}; an OkHttp interceptor attaches the Bearer token to requests. Protected routes derive the user ID from the verified token and enforce ownership checks.
+
+\subsection{Expenses and Budget Alerts}
+The expense service validates and saves an expense, then checks the category's monthly budget. The current month's total is compared with the configured limit and threshold. The API returns a \texttt{WARNING} or \texttt{EXCEEDED} alert in the same response, enabling immediate UI feedback. The check also runs when an expense is edited.
+
+\subsection{Spending Charts}
+A grouped SQL query aggregates expense amount and count by category for a selected month. The Android \texttt{DonutChartView} draws category slices on a Canvas, highlights a selected slice and displays its name and total. Month navigation requests a different date range.
+
+\subsection{Recurring Subscriptions}
+A subscription stores amount, category, frequency and next due date. The service creates an expense for each due occurrence and advances the due date by the appropriate period. A scheduler runs at startup and then hourly. Exceptions are caught so that one failed run does not terminate future processing.
+
+\subsection{Pet Progression}
+Buddy Bot's status is derived from user activity. The user receives 10 XP per expense, 25 per budget and 15 per subscription. Levels have progressive XP requirements and titles from HATCHLING to LEGEND. The streak counts consecutive days with at least one expense. Hunger and mood are calculated from activity and budget health.
+
+\section{Exception Handling}
+\begin{itemize}
+\item \textbf{DAO layer:} JDBC resources use try-with-resources; SQL exceptions propagate to services.
+\item \textbf{Service layer:} Invalid values produce readable validation messages. PostgreSQL unique-constraint violations are converted into friendly duplicate-category or duplicate-account messages.
+\item \textbf{API layer:} Exceptions are mapped to JSON error responses. Authentication, not-found and method errors retain appropriate HTTP status codes; validation errors become HTTP 400 and unexpected errors return a generic HTTP 500 message.
+\item \textbf{Scheduler:} Each run catches failures so future executions continue.
+\item \textbf{Android:} API errors are displayed clearly, network failures show a connection message and HTTP 401 clears the expired session.
+\end{itemize}
+
+\section{Collection Framework Usage}
+The Java Collections Framework is used throughout the project. Lists and ArrayLists hold DAO results and JSON arrays. HashMaps support lookup of category details and spending totals. Optional represents absent budgets or alerts. Comparators order results; streams map and filter collections. Android adapters maintain model lists for RecyclerView screens.
+
+\section{Database Connectivity}
+The application connects to PostgreSQL through JDBC and a HikariCP pool. Connection configuration is read from environment variables or a local properties file; credentials are not hard-coded. The hosted database requires SSL. SQL queries use PreparedStatements with bound parameters. Monetary values use BigDecimal and PostgreSQL NUMERIC(10,2). Schema, seed and migration scripts manage database setup and evolution.
+
+\section{Important Code Snippets}
+\subsection{Category-wise Aggregate Query}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Representative SQL aggregation},aboveskip=6pt,belowskip=6pt]
+SELECT c.id, COALESCE(c.name, 'Uncategorized') AS name,
+       SUM(e.amount) AS total, COUNT(*) AS transaction_count
+FROM expenses e
+LEFT JOIN categories c ON c.id = e.category_id
+WHERE e.user_id = ? AND e.expense_date BETWEEN ? AND ?
+GROUP BY c.id, c.name
+ORDER BY total DESC;
+\end{lstlisting}
+\end{minipage}
+The query groups expenses by category and returns totals and transaction counts for the selected date range.
+
+\subsection{Budget Alert Logic}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Java,caption={Budget threshold decision},aboveskip=6pt,belowskip=6pt]
+if (spent.compareTo(limit) >= 0) {
+    return BudgetStatus.EXCEEDED;
+}
+if (percentage >= alertThreshold) {
+    return BudgetStatus.WARNING;
+}
+return BudgetStatus.OK;
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Password Verification}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Java,caption={Secure password verification},aboveskip=6pt,belowskip=6pt]
+byte[] actual = pbkdf2(password.toCharArray(), salt, iterations);
+return MessageDigest.isEqual(expected, actual);
+\end{lstlisting}
+\end{minipage}
+A fresh salt is generated for each password, and the stored iteration count enables verification with the original parameters.
+
+\subsection{Subscription Processing}
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Java,caption={Processing a due subscription},aboveskip=6pt,belowskip=6pt]
+while (!due.isAfter(today)) {
+    createExpense(subscription, due);
+    due = subscription.frequency().next(due);
+}
+updateNextDueDate(subscription.id(), due);
+\end{lstlisting}
+\end{minipage}
+The loop handles missed periods and advances the subscription to its next future due date.
+
+\chapter{Results and Screenshots}
+This chapter presents the application running on an Android device/emulator and connected to the backend deployed on Render. Screens follow the Figma design and Pocket Pet OS design system.
+
+\section{Main Application Screen}
+After login, the user lands on the Expenses screen. The header identifies the user; the Daily Vault / Daily Spending card displays today's total and XP; the New Expense form and expense log provide entry, edit and delete actions; and the pet card tracks companion status. Bottom navigation opens Expenses, Charts, Budgets, Subs and Categories, while the top-right avatar opens the profile. In the demonstration below, logging a \$1.00 Potato expense in Food updates today's total to \$1.00 and awards 10 XP.
+\begin{figure}[H]\centering
+\begin{subfigure}[t]{.31\textwidth}\centering
+\shot{4.1.1.jpeg}
+\caption{Expenses screen (empty state)}\end{subfigure}\hfill
+\begin{subfigure}[t]{.31\textwidth}\centering
+\shot{4.1.2.jpeg}
+\caption{Expense logged and XP awarded}\end{subfigure}\hfill
+\begin{subfigure}[t]{.31\textwidth}\centering
+\shot{4.1.3.jpeg}
+\caption{Profile and Buddy Bot status}\end{subfigure}
+\caption{Main application screens}\label{fig:main}
+\end{figure}
+The profile presents pet level and title (\texttt{LVL 01 HATCHLING}), streak, XP progress (\texttt{10 / 100 XP}), Buddy Bot mood (\texttt{OVERJOYED 100\%}), trainer name (\texttt{Manvi}), account email and connected server URL.
+
+\section{Functional Screenshots}
+\subsection{Registration and Login}
+New users register with a username, email and password of at least eight characters. Existing users authenticate using email and password.
+\begin{figure}[H]\centering
+\begin{subfigure}[t]{.42\textwidth}\centering
+\shot{4.2.2.jpeg}
+\caption{Login}\end{subfigure}\hspace{1cm}
+\begin{subfigure}[t]{.42\textwidth}\centering
+\shot{4.2.1.jpeg}
+\caption{Registration}\end{subfigure}
+\caption{Authentication screens}\label{fig:auth}
+\end{figure}
+
+\subsection{Charts, Budgets and Alerts}
+The Budgets screen allows a category, monthly limit and alert threshold percentage to be configured and displays active budget progress. In the demonstration, Transport is configured with a \$25.00 limit and an 80\% alert threshold, showing \$20.00 spent (80.0\%) and a budget threshold alert. The Charts screen displays monthly spending and a donut chart, with category percentage, transaction count and amount. The November 2026 demonstration totals \$35.00, with Transport highlighted at \$20.00 (57\%).
+\begin{figure}[H]\centering
+\begin{subfigure}[t]{.42\textwidth}\centering
+\shot{4.3.2.jpeg}
+\caption{Monthly spending chart}\end{subfigure}\hspace{1cm}
+\begin{subfigure}[t]{.42\textwidth}\centering
+\shot{4.3.1.jpeg}
+\caption{Budget threshold alert}\end{subfigure}
+\caption{Charts and budget monitoring}\label{fig:charts}
+\end{figure}
+
+\subsection{Subscriptions and Categories}
+The Subscriptions screen shows active subscriptions, monthly burn rate, payment frequency and next-due countdown. The example includes a monthly Gym subscription of \$20.00 due on Dec 25, 2026 (in 30 days), contributing \$20.00/MO to the burn rate. The Categories screen supports category creation, colour tag selection, optional monthly limits and filtering/bulk actions across the user's categories.
+\begin{figure}[H]\centering
+\begin{subfigure}[t]{.42\textwidth}\centering
+\shot{4.4.1.jpeg}
+\caption{Subscriptions}\end{subfigure}\hspace{1cm}
+\begin{subfigure}[t]{.42\textwidth}\centering
+\shot{4.4.2.jpeg}
+\caption{Category management}\end{subfigure}
+\caption{Subscription and category screens}\label{fig:subs}
+\end{figure}
+
+\section{Input and Output Demonstrations}
+\begin{table}[H]\centering\small\caption{Representative inputs and outputs}\label{tab:io}
+\begin{tabularx}{\linewidth}{@{}p{.34\linewidth}X@{}}\toprule
+\textbf{Input / action}&\textbf{Output / result}\\\midrule
+Register with username, email and password&Account created, default categories added and session established.\\
+Record \$1.00 Potato in Food&Expense appears in log; Daily Spending updates to \$1.00; 10 XP is awarded.\\
+Set \$25.00 Transport budget with 80\% alert and spend \$20.00&Budget shows 80.0\% and triggers a budget threshold alert.\\
+Open Charts for Nov 2026&Category totals, percentages and \$35.00 monthly total appear.\\
+Add monthly Gym subscription of \$20.00 due in 30 days&Subscription appears with countdown and \$20.00/MO burn rate.\\
+Request \texttt{/api/health}&JSON response \texttt{\{"status":"ok"\}} indicates the backend is available.\\\bottomrule
+\end{tabularx}
+\end{table}
+\begin{figure}[H]\centering
+\wideshot{health_check.png}
+\caption{Deployed backend health check (\texttt{/api/health})}\label{fig:health}\end{figure}
+
+\section{Error Handling Demonstrations}
+The application presents readable validation/authentication messages and confirms destructive operations.
+\begin{figure}[H]\centering
+\begin{subfigure}[t]{.31\textwidth}\centering
+\shot{4.6.1.jpeg}
+\caption{Duplicate category}\end{subfigure}\hfill
+\begin{subfigure}[t]{.31\textwidth}\centering
+\shot{4.6.2.jpeg}
+\caption{Deletion confirmation}\end{subfigure}\hfill
+\begin{subfigure}[t]{.31\textwidth}\centering
+\shot{4.6.3.jpeg}
+\caption{Invalid login}\end{subfigure}
+\caption{Error handling and confirmation dialogs}\label{fig:errors}
+\end{figure}
+Duplicate category names are rejected with a clear inline message (such as \texttt{You already have a category called Bills}). Category deletion prompts for confirmation and explains the consequences, including unlinked expenses shown as Uncategorized and removed budgets. Invalid credentials display \texttt{Invalid email or password} without exposing sensitive details.
+
+\clearpage
+\addcontentsline{toc}{chapter}{References}
+\begin{thebibliography}{99}
+\bibitem{bloch} J. Bloch, \textit{Effective Java}, 3rd ed. Addison-Wesley, 2018.
+\bibitem{oracle} Oracle, \textit{Java Platform, Standard Edition Documentation}. Available: https://docs.oracle.com/en/java/javase/
+\bibitem{jdbc} Oracle, \textit{JDBC Database Access}. Available: https://docs.oracle.com/javase/tutorial/jdbc/
+\bibitem{postgres} PostgreSQL Global Development Group, \textit{PostgreSQL Documentation}. Available: https://www.postgresql.org/docs/
+\bibitem{android} Android Developers, \textit{View Binding}. Available: https://developer.android.com/topic/libraries/view-binding
+\bibitem{jackson} FasterXML, \textit{Jackson Project Documentation}. Available: https://github.com/FasterXML/jackson
+\bibitem{maven} Apache Software Foundation, \textit{Apache Maven Project}. Available: https://maven.apache.org/
+\bibitem{jwt} M. Jones, J. Bradley, and N. Sakimura, \textit{JSON Web Token (JWT)}, RFC 7519, IETF, 2015.
+\bibitem{pbkdf} K. Moriarty, B. Kaliski, and A. Rusch, \textit{PKCS \#5: Password-Based Cryptography Specification Version 2.1}, RFC 8018, IETF, 2017.
+\bibitem{neon} Neon, \textit{Neon Serverless Postgres Documentation}. Available: https://neon.com/docs
+\bibitem{render} Render, \textit{Render Documentation}. Available: https://render.com/docs
+\bibitem{docker} Docker, Inc., \textit{Docker Documentation}. Available: https://docs.docker.com/
+\bibitem{figma} Figma, Inc., \textit{Figma Help Center}. Available: https://help.figma.com/
+\bibitem{retrofit} Square, Inc., \textit{Retrofit Documentation}. Available: https://square.github.io/retrofit/
+\bibitem{hikari} B. Wooldridge, \textit{HikariCP Documentation}. Available: https://github.com/brettwooldridge/HikariCP
+\end{thebibliography}
+
+\end{document}
